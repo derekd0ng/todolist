@@ -5,8 +5,7 @@
       "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build",
-        "buildCommand": "cd client && npm install && npm run build"
+        "distDir": "client/build"
       }
     },
     {
@@ -24,6 +23,8 @@
       "dest": "/client/build/index.html"
     }
   ],
+  "installCommand": "npm install --prefix client",
+  "buildCommand": "npm run build --prefix client",
   "env": {
     "NODE_ENV": "production"
   }
