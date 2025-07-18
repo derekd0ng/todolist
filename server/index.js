@@ -28,6 +28,36 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Database test endpoint
+app.get('/api/test-db', async (req, res) => {
+  try {
+    const { Pool } = require('pg');
+    const pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+    });
+    
+    console.log('Testing database connection...');
+    const result = await pool.query('SELECT NOW() as current_time');
+    console.log('Database test successful:', result.rows[0]);
+    
+    res.json({
+      status: 'success',
+      message: 'Database connection successful',
+      currentTime: result.rows[0].current_time,
+      environment: process.env.NODE_ENV
+    });
+  } catch (error) {
+    console.error('Database test failed:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Database connection failed',
+      error: error.message,
+      code: error.code
+    });
+  }
+});
+
 app.get('/api/todos', async (req, res) => {
   try {
     const todos = await getAllTodos();
