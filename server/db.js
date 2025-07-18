@@ -7,6 +7,10 @@ const pool = new Pool({
 
 const createTodosTable = async () => {
   try {
+    console.log('Testing database connection...');
+    await pool.query('SELECT 1');
+    console.log('Database connection successful');
+    
     await pool.query(`
       CREATE TABLE IF NOT EXISTS todos (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -19,6 +23,7 @@ const createTodosTable = async () => {
     console.log('Todos table created or already exists');
   } catch (error) {
     console.error('Error creating todos table:', error);
+    console.error('Database connection failed:', error.message);
   }
 };
 

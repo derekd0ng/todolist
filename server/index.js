@@ -8,8 +8,25 @@ const PORT = process.env.PORT || 8765;
 app.use(cors());
 app.use(express.json());
 
+// Debug logging
+console.log('Environment variables:');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+console.log('DATABASE_URL prefix:', process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 20) + '...' : 'not set');
+
 // Initialize database
+console.log('Initializing database...');
 createTodosTable();
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV,
+    databaseConnected: !!process.env.DATABASE_URL
+  });
+});
 
 app.get('/api/todos', async (req, res) => {
   try {
