@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Todo, TodoCategory } from './types';
 import { api } from './api';
+import CustomDropdown from './CustomDropdown';
 import './App.css';
 
 type TabType = 'All' | TodoCategory;
@@ -139,17 +140,12 @@ function App() {
           placeholder="Add a new todo..."
           className="add-todo-input"
         />
-        <select
+        <CustomDropdown
           value={newTodoCategory}
-          onChange={(e) => setNewTodoCategory(e.target.value as TodoCategory)}
-          className="category-select"
-        >
-          {categories.map(category => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+          onChange={setNewTodoCategory}
+          options={categories}
+          className="category-dropdown"
+        />
         <button type="submit" className="add-todo-button">
           Add
         </button>
@@ -203,17 +199,13 @@ function App() {
                       className="edit-input"
                       autoFocus
                     />
-                    <select
+                    <CustomDropdown
                       value={editingCategory}
-                      onChange={(e) => setEditingCategory(e.target.value as TodoCategory)}
-                      className="category-select-small"
-                    >
-                      {categories.map(cat => (
-                        <option key={cat} value={cat}>
-                          {cat}
-                        </option>
-                      ))}
-                    </select>
+                      onChange={setEditingCategory}
+                      options={categories}
+                      size="small"
+                      className="category-dropdown-small"
+                    />
                     <div className="edit-actions">
                       <button onClick={handleSaveEdit} className="save-button">
                         Save
