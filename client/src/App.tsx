@@ -127,9 +127,7 @@ function App() {
 
   return (
     <div className="app">
-      <div className="top-header">
-        <h1 className="app-title">KK</h1>
-      </div>
+      <h1 className="app-title">KK</h1>
 
       {error && <div className="error">{error}</div>}
 
@@ -156,10 +154,6 @@ function App() {
           Add
         </button>
       </form>
-
-      <div className="subtitle">
-        <p>умоляю, не проеби это</p>
-      </div>
 
       <div className="tabs-container">
         {tabs.map(tab => (
