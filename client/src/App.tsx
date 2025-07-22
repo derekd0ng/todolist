@@ -9,12 +9,12 @@ type TabType = 'All' | TodoCategory;
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoText, setNewTodoText] = useState('');
-  const [newTodoCategory, setNewTodoCategory] = useState<TodoCategory>('Miscellaneous');
+  const [newTodoCategory, setNewTodoCategory] = useState<TodoCategory>('Я должен');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState('');
-  const [editingCategory, setEditingCategory] = useState<TodoCategory>('Miscellaneous');
+  const [editingCategory, setEditingCategory] = useState<TodoCategory>('Я должен');
   const [activeTab, setActiveTab] = useState<TabType>('All');
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function App() {
       const newTodo = await api.createTodo(newTodoText, newTodoCategory);
       setTodos([...todos, newTodo]);
       setNewTodoText('');
-      setNewTodoCategory('Miscellaneous');
+      setNewTodoCategory('Я должен');
       setError(null);
     } catch (err) {
       setError('Failed to add todo');
@@ -87,7 +87,7 @@ function App() {
       ));
       setEditingId(null);
       setEditingText('');
-      setEditingCategory('Miscellaneous');
+      setEditingCategory('Я должен');
       setError(null);
     } catch (err) {
       setError('Failed to update todo');
@@ -97,7 +97,7 @@ function App() {
   const handleCancelEdit = () => {
     setEditingId(null);
     setEditingText('');
-    setEditingCategory('Miscellaneous');
+    setEditingCategory('Я должен');
   };
 
   const categories: TodoCategory[] = ['Я должен', 'Мне должны', 'Miscellaneous'];
