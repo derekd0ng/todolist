@@ -8,6 +8,8 @@ interface CustomDropdownProps {
   options: TodoCategory[];
   size?: 'normal' | 'small';
   className?: string;
+  formatOption?: (option: TodoCategory) => string;
+  getOptionEmoji?: (option: TodoCategory) => string;
 }
 
 const CustomDropdown: React.FC<CustomDropdownProps> = ({
@@ -15,7 +17,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   onChange,
   options,
   size = 'normal',
-  className = ''
+  className = '',
+  formatOption,
+  getOptionEmoji
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -64,7 +68,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
             className="category-dot" 
             style={{ backgroundColor: getCategoryColor(value) }}
           ></span>
-          {value}
+          {getOptionEmoji && <span className="category-emoji">{getOptionEmoji(value)}</span>}
+          {formatOption ? formatOption(value) : value}
         </span>
         <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>
           ▼
@@ -84,7 +89,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 className="category-dot" 
                 style={{ backgroundColor: getCategoryColor(option) }}
               ></span>
-              {option}
+              {getOptionEmoji && <span className="category-emoji">{getOptionEmoji(option)}</span>}
+              {formatOption ? formatOption(option) : option}
             </button>
           ))}
         </div>

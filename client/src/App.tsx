@@ -118,6 +118,23 @@ function App() {
     }
   };
 
+  const getCategoryEmoji = (category: TodoCategory): string => {
+    switch (category) {
+      case 'Я должен':
+        return '📝';
+      case 'Мне должны':
+        return '💰';
+      case 'Miscellaneous':
+        return '📋';
+      default:
+        return '📋';
+    }
+  };
+
+  const getCategoryWithEmoji = (category: TodoCategory): string => {
+    return `${getCategoryEmoji(category)} ${category}`;
+  };
+
   if (loading) {
     return (
       <div className="app">
@@ -145,6 +162,7 @@ function App() {
           onChange={setNewTodoCategory}
           options={categories}
           className="category-dropdown"
+          getOptionEmoji={getCategoryEmoji}
         />
         <button type="submit" className="add-todo-button">
           Add
@@ -205,6 +223,7 @@ function App() {
                       options={categories}
                       size="small"
                       className="category-dropdown-small"
+                      getOptionEmoji={getCategoryEmoji}
                     />
                     <div className="edit-actions">
                       <button onClick={handleSaveEdit} className="save-button">
@@ -224,7 +243,7 @@ function App() {
                       className="category-badge"
                       style={{ backgroundColor: getCategoryBadgeColor(todo.category) }}
                     >
-                      {todo.category}
+                      {getCategoryEmoji(todo.category)} {todo.category}
                     </span>
                     <div className="todo-actions">
                       <button

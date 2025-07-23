@@ -44,6 +44,11 @@
   flex-shrink: 0;
 }
 
+.category-emoji {
+  font-size: 14px;
+  margin-right: 4px;
+}
+
 .dropdown-arrow {
   font-size: 12px;
   transition: transform 0.3s ease;
@@ -125,6 +130,10 @@
 .custom-dropdown.small .category-dot {
   width: 6px;
   height: 6px;
+}
+
+.custom-dropdown.small .category-emoji {
+  font-size: 12px;
 }
 
 /* Mobile responsive */
